@@ -1,0 +1,8 @@
+ato file-hack canary — DO NOT EDIT.
+
+This file is bundled with the file-hack demo capsule and must remain UNCHANGED
+after a run. The capsule's payload tries to overwrite this exact file; Ato's
+sandbox mounts the capsule read-only, so the write is blocked and these bytes
+stay intact. If this file ever changes during a run, the sandbox did NOT hold.
+
+canary-value: ATO-FILE-HACK-CANARY-ORIGINAL

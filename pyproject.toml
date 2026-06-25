@@ -1,0 +1,6 @@
+[project]
+name = "ato-file-hack-canary"
+version = "0.1.0"
+description = "Security demo file-write canary (stdlib only)"
+requires-python = ">=3.11"
+dependencies = []
