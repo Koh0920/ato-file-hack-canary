@@ -1,3 +1,6 @@
-.ato/
+.ato/*
+!.ato/derived/
+.ato/derived/*
+!.ato/derived/capsule.lock.json
 .venv/
 __pycache__/
