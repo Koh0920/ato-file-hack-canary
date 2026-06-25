@@ -1,15 +1,20 @@
 schema_version = "0.3"
 name = "ato-file-hack-canary"
-version = "0.1.0"
+version = "0.2.0"
 type = "app"
-description = "Security demo canary: a capsule that ATTEMPTS to overwrite its own bundled file. Ato's source sandbox mounts the capsule read-only, so the write is blocked (Read-only file system) and demo-protected/canary.txt is left unchanged. Harmless: writes a fixed string, deletes nothing."
+description = "Security demo canary: tries to overwrite its own bundled file, gets blocked by Ato's read-only sandbox mount (EROFS), then serves a small report page proving the write was denied and the file is unchanged. Harmless: writes a fixed string, deletes nothing, reads no secrets."
 homepage = "https://github.com/Koh0920/ato-file-hack-canary"
+default_target = "main"
 
-runtime = "source/python"
+# Service form: declaring `port` lets Ato synthesize an honest TCP readiness probe
+# (the run is reported Ready only after the port actually accepts), so the PWA can
+# open the app and show the result. The forbidden write still genuinely fails first.
+[targets.main]
+runtime = "source"
+driver = "python"
 runtime_version = "3.11"
-run = "payload.py"
+port = 8000
+run = "python payload.py"
 
 [isolation]
 sandbox = true
-# No writable paths granted. Ato bind-mounts the capsule's own files READ-ONLY,
-# so a write to demo-protected/canary.txt fails with EROFS (Read-only file system).
